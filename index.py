@@ -1,3 +1,31 @@
+import subprocess
+import sys
+
+# ---------------------------
+# Function to auto-install a package
+# ---------------------------
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# ---------------------------
+# List of required packages
+# ---------------------------
+required_packages = [
+    "discord.py",
+    "python-dotenv",
+    "gspread",
+    "oauth2client",
+    "flask",
+]
+
+for pkg in required_packages:
+    try:
+        __import__(pkg.replace("-", "_"))
+    except ImportError:
+        print(f"📦 Installing {pkg} ...")
+        install(pkg)
+
+
 import os
 import asyncio
 from datetime import datetime
